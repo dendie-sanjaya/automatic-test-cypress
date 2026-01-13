@@ -1,230 +1,217 @@
-# Tutorial Lengkap: Automated Testing dengan Cypress
+# Complete Tutorial: Automated Testing with Cypress
 
-Selamat datang di panduan belajar **Automated Testing** menggunakan **Cypress**! 🚀
+## A Short Story
+Imagine you are a QA Engineer at an online store company. Every week there is a new feature, and every week you have to check the "Login" and "Checkout" features manually, over and over again.
 
-Panduan ini disusun khusus untuk pemula (orang awam) agar bisa memahami konsep *End-to-End (E2E) Testing* dan cara mengimplementasikannya langkah demi langkah.
+Monday you check, it's safe. Wednesday there's a code update from the programmer, you check again. Friday there's a hotfix, check again.
 
+Over time your eyes get tired, your fingers get sore, and you start to feel bored. Finally, one check is missed due to _human error_, and a fatal bug escapes to production. Users are angry, the boss is panicked.
 
+**Is there a better way?**
 
-## 📚 Daftar Isi
+Of course there is! Say hello to **Cypress**, a loyal robot assistant that never gets tired. You only need to teach it once (write code), and it will do the checking forever—day and night, fast, and accurate. Let's start the journey of building this robot!
 
-1. [Apa itu Cypress & E2E Testing?](#1-apa-itu-cypress--e2e-testing)
-2. [Persiapan (Prerequisites)](#2-persiapan-prerequisites)
-3. [Instalasi Proyek](#3-instalasi-proyek)
-4. [Memahami Struktur Folder](#4-memahami-struktur-folder)
-5. [Perintah Dasar Cypress](#5-perintah-dasar-cypress)
-6. [Membuat Skenario Tes Pertama](#6-membuat-skenario-tes-pertama)
-7. [Menjalankan Test](#7-menjalankan-test)
+---
 
+## 📚 Table of Contents
 
+1. [Software Testing Life Cycle (STLC)](#1-software-testing-life-cycle-stlc)
+2. [What is Cypress & E2E Testing?](#2-what-is-cypress--e2e-testing)
+3. [Best Practice Collaboration Scheme](#3-best-practice-collaboration-scheme)
+4. [Prerequisites](#4-prerequisites)
+5. [Project Installation](#5-project-installation)
+6. [Understanding Folder Structure](#6-understanding-folder-structure)
+7. [Basic Cypress Commands](#7-basic-cypress-commands)
+8. [Creating First Test Scenario](#8-creating-first-test-scenario)
+9. [Running the Test](#9-running-the-test)
+
+---
 
 ## 1. Software Testing Life Cycle (STLC)
 
-STLC adalah siklus yang harus diikuti oleh tim QA (Quality Assurance) untuk memastikan aplikasi bekerja dengan baik.
+STLC is a cycle that must be followed by the QA (Quality Assurance) team to ensure the application works well.
+
+![ss](./design/tipe-testing.jpg)
+
+### 1. Unit Testing
+This test focuses on checking the most basic logic inside the application code, such as ensuring the total shopping calculation function does not add up numbers incorrectly.
+
+### 2. Functional Testing
+This test ensures app features run correctly from the user's side, such as guaranteeing the "pay" button actually processes the order until finished.
+
+### 3. Stress Testing
+This test is done by flooding the application with thousands of users at once to see when the system will slow down or stop working.
+
+### 4. Penetration Testing
+This test is a simulated attack to find security loopholes in the application so that user data is not easily stolen by hackers.
 
 
+## 2. What is Cypress & E2E Testing?
 
-1. Unit Testing
+**Functional Testing** or **E2E (End-to-End) Testing** is a testing method where we simulate real user behavior from start to finish.
 
-Pengujian ini fokus pada pengecekan logika paling dasar di dalam kode aplikasi, seperti memastikan fungsi hitung total belanja tidak salah menjumlahkan angka.
-
-2. Functional Testing
-
-Pengujian ini memastikan fitur aplikasi berjalan benar dari sisi pengguna, seperti menjamin tombol "bayar" benar-benar memproses pesanan hingga selesai.
-
-3. Stress Testing
-
-Pengujian ini dilakukan dengan membanjiri aplikasi dengan ribuan pengguna sekaligus untuk melihat kapan sistem akan melambat atau berhenti berfungsi.
-
-4. Penetration Testing
-
-Pengujian ini adalah simulasi serangan untuk mencari celah keamanan pada aplikasi agar data pengguna tidak mudah dicuri oleh peretas.
+Cypress is a tool that allows us to perform that simulation automatically.
 
 
-## 1. Apa itu Cypress & E2E Testing?
-
-
-**Functional Testing** atau **E2E (End-to-End) Testing** adalah metode pengujian di mana kita mensimulasikan perilaku user sungguhan dari awal sampai akhir.
-
-Bayangkan Anda punya robot yang bisa membuka browser, mengetik username, klik tombol login, dan memastikan Anda berhasil masuk ke halaman utama. Robot itulah **Cypress**.
-
-
-## 2. Skema Bestpratci colaborantion E2E testing
+## 3. Best Practice Collaboration Scheme
 
 ![ss](./design/design-Cypres.jpg)
 
-Cypress memungkinkan tim QA (Quality Assurance) bekerja secara paralel. Setiap QA bisa mengerjakan alur bisnis (flow) yang berbeda tanpa saling tumpang tindih.
+Cypress allows the QA (Quality Assurance) team to work in parallel. Each QA can work on a different business flow without overlapping each other.
 
 
-## 2. Persiapan (Prerequisites)
+## 4. Prerequisites
 
-Sebelum mulai, Anda wajib menginstal **Node.js** di komputer Anda.
+Before starting, you must install **Node.js** on your computer.
 
-1.  **Download Node.js**
+### 1. Download Node.js
+Visit the official Node.js website and download the LTS (Long Term Support) version.
 
-Kunjungi situs resmi Node.js dan unduh versi LTS (Long Term Support).
+![Check Node Version](ss/1.jpg)
+![Check Node Version](ss/2.jpg)
 
-![Cek Versi Node](ss/1.jpg)
-
-![Cek Versi Node](ss/2.jpg)
-
-
-2.  **Cek Instalasi**
-
-Buka Terminal (Command Prompt/PowerShell) dan ketik perintah berikut untuk memastikan instalasi berhasil:
+### 2. Check Installation
+Open Terminal (Command Prompt/PowerShell) and type the following command to ensure the installation was successful:
 
 ```bash
 node -v
 npm -v
 ```
 
-![Cek Versi Node](ss/3.jpg)
+![Check Node Version](ss/3.jpg)
+![Check Node Version](ss/3-1.jpg)
 
-![Cek Versi Node](ss/3-1.jpg)
 
+## 5. Project Installation
 
-## 3. Instalasi Proyek
+Let's make our first test project from zero.
 
-Mari kita buat proyek test pertama kita dari nol.
+**Steps:**
 
-**Langkah-langkah:**
-
-1.  **Buat Folder Proyek**: Buat folder baru di komputer Anda, misal `project`.
-2.  **Inisialisasi Proyek**: Buka terminal di dalam folder tersebut dan ketik:
+1.  **Create Project Folder**: Make a new folder on your computer, for example `project`.
+2.  **Initialize Project**: Open the terminal inside that folder and type:
     ```bash
     npm init -y
     ```
-    Ini akan membuat file `package.json`.
+    This will create a `package.json` file.
 
-    ![Cek Versi Node](ss/4.jpg)
+    ![Check Node Version](ss/4.jpg)
 
-
-3.  **Install Cypress**: Ketik perintah ini untuk mengunduh Cypress:
+3.  **Install Cypress**: Type this command to download Cypress:
     ```bash
     npm install cypress --save-dev
     ```
 
-4.  **Buka Cypress**: Setelah selesai install, buka aplikasi Cypress dengan perintah:
+4.  **Open Cypress**: After installation is done, open the Cypress application with the command:
     ```bash
     npx cypress open
     ```
-   ![Cek Versi Node](ss/5.jpg)
-
-   ![Cek Versi Node](ss/6.jpg)
-
-   ![Cek Versi Node](ss/7.jpg)
-
-   ![Cek Versi Node](ss/8.jpg)
-
-   ![Cek Versi Node](ss/9.jpg)
-
-   ![Cek Versi Node](ss/10.jpg)
+    ![Check Node Version](ss/5.jpg)
+    ![Check Node Version](ss/6.jpg)
+    ![Check Node Version](ss/7.jpg)
+    ![Check Node Version](ss/8.jpg)
+    ![Check Node Version](ss/9.jpg)
+    ![Check Node Version](ss/10.jpg)
 
 
-## 4. Memahami Struktur Folder
+## 6. Understanding Folder Structure
 
-Setelah Cypress terbuka pertama kali, ia akan otomatis membuat beberapa folder penting. Sangat penting untuk memahami fungsinya.
+After Cypress opens for the first time, it will automatically create several important folders. It is very important to understand their functions.
 
-![Struktur Folder](ss/12-structur-folder.jpg)
+![Folder Structure](ss/12-structur-folder.jpg)
 
 *   **`cypress/e2e`**:
-    *   Di sinilah "otak" tes Anda berada. Semua file skenario tes (berakhiran `.cy.js`) disimpan di sini.
+    *   This is where your test "brain" is. All test scenario files (ending in `.cy.js`) are saved here.
 *   **`cypress/fixtures`**:
-    *   Tempat menyimpan data dummy/palsu (biasanya format JSON). Contoh: data user untuk login (username, password).
+    *   Place to save dummy/fake data (usually JSON format). Example: user data for login (username, password).
 *   **`cypress/support`**:
-    *   Tempat menaruh kode yang bisa dipakai berulang-kali (reusable testing code) atau *custom commands* agar kode tes utama lebih rapi.
+    *   Place to put code that can be used repeatedly (reusable testing code) or *custom commands* to make the main test code neater.
 *   **`cypress.config.js`**:
-    *   File konfigurasi global untuk Cypress. Anda bisa mengatur base URL website yang akan dites di sini. -> ![Config Global](ss/13-config-global.jpg)
+    *   Global configuration file for Cypress. You can set the base URL of the website to be tested here. -> ![Config Global](ss/13-config-global.jpg)
 
 
+## 7. Basic Cypress Commands
 
-## 5. Perintah Dasar Cypress
+Cypress uses human-friendly language that is easy to understand. Here is a "dictionary" of the most frequently used commands:
 
-Cypress menggunakan bahasa manusiawi yang mudah dimengerti. Berikut "kamus" perintah yang paling sering dipakai:
-
-| Perintah | Fungsi | Contoh Penggunaan |
+| Command | Function | Usage Example |
 | : | : | : |
-| **`cy.visit()`** | Membuka alamat website (URL). | `cy.visit('https://google.com')` |
-| **`cy.get()`** | Mencari elemen di halaman (tombol, kotak teks). | `cy.get('#username')` |
-| **`cy.type()`** | Mengetik teks ke dalam input. | `cy.get('#username').type('budi123')` |
-| **`cy.click()`** | Melakukan klik (tombol/link). | `cy.get('#btn-login').click()` |
-| **`cy.contains()`** | Mencari elemen berdasarkan tulisan teks-nya. | `cy.contains('Login Berhasil')` |
-| **`cy.should()`** | Melakukan validasi/pengecekan (Assertion). | `cy.get('.alert').should('be.visible')` |
-| **`cy.wait()`** | Menunggu sekian detik (gunakan dgn bijak). | `cy.wait(1000)` (tunggu 1 detik) |
+| **`cy.visit()`** | Opens a website address (URL). | `cy.visit('https://google.com')` |
+| **`cy.get()`** | Finds an element on the page (button, text box). | `cy.get('#username')` |
+| **`cy.type()`** | Types text into an input. | `cy.get('#username').type('budi123')` |
+| **`cy.click()`** | Performs a click (button/link). | `cy.get('#btn-login').click()` |
+| **`cy.contains()`** | Finds an element based on its text writing. | `cy.contains('Login Successful')` |
+| **`cy.should()`** | Performs validation/checking (Assertion). | `cy.get('.alert').should('be.visible')` |
+| **`cy.wait()`** | Waits for a few seconds (use wisely). | `cy.wait(1000)` (wait 1 second) |
 
 
+## 8. Creating First Test Scenario
 
-## 6. Membuat Skenario Tes Pertama
+Let's make a scenario for **Login**.
 
-Mari kita buat skenario untuk **Login**.
-
-1.  Buat file baru di folder `cypress/e2e` dengan nama `1-Skenario-Login.cy.js`.
-2.  Tulis kode berikut (sesuaikan selector dengan website target Anda):
+1.  Create a new file in the `cypress/e2e` folder with the name `1-Login-Scenario.cy.js`.
+2.  Write the following code (adjust selector with your target website):
 
 ```javascript
-describe('Skenario Test Login', () => {
+describe('Login Test Scenario', () => {
     
-  it('User berhasil login dengan data valid', () => {
-    // 1. Buka halaman website
+  it('User successfully logs in with valid data', () => {
+    // 1. Open website page
     cy.visit('https://website-toko-online.com/login');
 
-    // 2. Masukkan Username
-    cy.get('input[name="email"]').type('user@contoh.com');
+    // 2. Input Username
+    cy.get('input[name="email"]').type('user@example.com');
 
-    // 3. Masukkan Password
-    cy.get('input[name="password"]').type('rahasia123');
+    // 3. Input Password
+    cy.get('input[name="password"]').type('secret123');
 
-    // 4. Klik Tombol Login
+    // 4. Click Login Button
     cy.get('button[type="submit"]').click();
 
-    // 5. Validasi: Harusnya redirect ke Dashboard
+    // 5. Validation: Should redirect to Dashboard
     cy.url().should('include', '/dashboard');
-    cy.contains('Selamat Datang').should('be.visible');
+    cy.contains('Welcome').should('be.visible');
   });
 
 });
 ```
-![Skenario Login Code](ss/16-skenario-login.jpg)
-
-![Skenario Login Code](ss/14-skenario-login.jpg)
-
-
-## 7. Menjalankan Test
-
-Ada dua cara untuk menjalankan robot tes Anda:
-
-### Cara 1: Menggunakan GUI (Mode Visual)
-Cocok untuk debugging dan melihat langkah-langkah robot bekerja.
-
-1.  Jalankan `npx cypress open`.
-2.  Pilih "E2E Testing".
-3.  Pilih browser (misal: Chrome).
-4.  Klik file `1-Skenario-Login.cy.js`.
-5.  Tonton robot bekerja!
-
-![Skenario Login Code](ss/15-skenario-login.jpg)
-
-![Skenario Login Code](ss/15-skenario-run-2.jpg)
-
-![Skenario Login Code](ss/16-skenario-login-2.jpg)
+![Login Scenario Code](ss/16-skenario-login.jpg)
+![Login Scenario Code](ss/14-skenario-login.jpg)
 
 
-### Cara 2: Menggunakan CLI (Mode Cepat/Headless)
-Cocok untuk dijalankan di server atau CI/CD, tanpa membuka jendela browser.
+## 9. Running the Test
 
-Jalankan perintah ini di terminal:
+There are two ways to run your test robot:
+
+### Method 1: Using GUI (Visual Mode)
+Suitable for debugging and seeing the robot's steps working.
+
+1.  Run `npx cypress open`.
+2.  Choose "E2E Testing".
+3.  Choose browser (example: Chrome).
+4.  Click file `1-Login-Scenario.cy.js`.
+5.  Watch the robot work!
+
+![Login Scenario Code](ss/15-skenario-login.jpg)
+![Login Scenario Code](ss/15-skenario-run-2.jpg)
+![Login Scenario Code](ss/16-skenario-login-2.jpg)
+
+
+### Method 2: Using CLI (Fast/Headless Mode)
+Suitable to be run on a server or CI/CD, without opening the browser window.
+
+Run this command in the terminal:
 
 ```bash
 npx cypress run --spec "cypress/e2e/1-Skenario-Login.cy.js"
 ```
 
-Jika tes berhasil, Anda akan melihat laporan centang hijau (✅).
+If the test is successful, you will see a green check report (✅).
 
-![Skenario Login Code](ss/16-skenario-login-cypress-run.jpg)
+![Login Scenario Code](ss/16-skenario-login-cypress-run.jpg)
+![Login Scenario Code](ss/16-skenario-login-cypress-run-2.jpg)
 
-![Skenario Login Code](ss/16-skenario-login-cypress-run-2.jpg)
-
-
-> **Tips Tambahan**:
-> Anda bisa melihat seubah source code cypress di folder `project/` untuk explorati lebih jelas
+---
+> **Extra Tips**:
+> You can see all the cypress source code in the `project/` folder for clearer exploration.
 
