@@ -4,7 +4,7 @@ Selamat datang di panduan belajar **Automated Testing** menggunakan **Cypress**!
 
 Panduan ini disusun khusus untuk pemula (orang awam) agar bisa memahami konsep *End-to-End (E2E) Testing* dan cara mengimplementasikannya langkah demi langkah.
 
----
+
 
 ## 📚 Daftar Isi
 
@@ -16,13 +16,13 @@ Panduan ini disusun khusus untuk pemula (orang awam) agar bisa memahami konsep *
 6. [Membuat Skenario Tes Pertama](#6-membuat-skenario-tes-pertama)
 7. [Menjalankan Test](#7-menjalankan-test)
 
----
+
 
 ## 1. Software Testing Life Cycle (STLC)
 
 STLC adalah siklus yang harus diikuti oleh tim QA (Quality Assurance) untuk memastikan aplikasi bekerja dengan baik.
 
-![ss](./design/tipe-testing.jpg)
+
 
 1. Unit Testing
 
@@ -43,30 +43,45 @@ Pengujian ini adalah simulasi serangan untuk mencari celah keamanan pada aplikas
 
 ## 1. Apa itu Cypress & E2E Testing?
 
+
 **Functional Testing** atau **E2E (End-to-End) Testing** adalah metode pengujian di mana kita mensimulasikan perilaku user sungguhan dari awal sampai akhir.
 
 Bayangkan Anda punya robot yang bisa membuka browser, mengetik username, klik tombol login, dan memastikan Anda berhasil masuk ke halaman utama. Robot itulah **Cypress**.
 
-**Kenapa Paralel?**
+
+## 2. Skema Bestpratci colaborantion E2E testing
+
+![ss](./design/design-Cypres.jpg)
+
 Cypress memungkinkan tim QA (Quality Assurance) bekerja secara paralel. Setiap QA bisa mengerjakan alur bisnis (flow) yang berbeda tanpa saling tumpang tindih.
 
----
 
 ## 2. Persiapan (Prerequisites)
 
 Sebelum mulai, Anda wajib menginstal **Node.js** di komputer Anda.
 
-1.  **Download Node.js**: Kunjungi situs resmi Node.js dan unduh versi LTS (Long Term Support).
-2.  **Cek Instalasi**: Buka Terminal (Command Prompt/PowerShell) dan ketik perintah berikut untuk memastikan instalasi berhasil:
+1.  **Download Node.js**
 
-    ```bash
-    node -v
-    npm -v
-    ```
-    *(Lihat gambar: Mengecek versi node dan npm)*
-    ![Cek Versi Node](ss/2.jpg)
+Kunjungi situs resmi Node.js dan unduh versi LTS (Long Term Support).
 
----
+![Cek Versi Node](ss/1.jpg)
+
+![Cek Versi Node](ss/2.jpg)
+
+
+2.  **Cek Instalasi**
+
+Buka Terminal (Command Prompt/PowerShell) dan ketik perintah berikut untuk memastikan instalasi berhasil:
+
+```bash
+node -v
+npm -v
+```
+
+![Cek Versi Node](ss/3.jpg)
+
+![Cek Versi Node](ss/3-1.jpg)
+
 
 ## 3. Instalasi Proyek
 
@@ -74,25 +89,37 @@ Mari kita buat proyek test pertama kita dari nol.
 
 **Langkah-langkah:**
 
-1.  **Buat Folder Proyek**: Buat folder baru di komputer Anda, misal `belajar-cypress`.
+1.  **Buat Folder Proyek**: Buat folder baru di komputer Anda, misal `project`.
 2.  **Inisialisasi Proyek**: Buka terminal di dalam folder tersebut dan ketik:
     ```bash
     npm init -y
     ```
     Ini akan membuat file `package.json`.
+
+    ![Cek Versi Node](ss/4.jpg)
+
+
 3.  **Install Cypress**: Ketik perintah ini untuk mengunduh Cypress:
     ```bash
     npm install cypress --save-dev
     ```
-    *(Lihat gambar: Proses install cypress)*
-    ![Install Cypress](ss/3.jpg)
 
 4.  **Buka Cypress**: Setelah selesai install, buka aplikasi Cypress dengan perintah:
     ```bash
     npx cypress open
     ```
+   ![Cek Versi Node](ss/5.jpg)
 
----
+   ![Cek Versi Node](ss/6.jpg)
+
+   ![Cek Versi Node](ss/7.jpg)
+
+   ![Cek Versi Node](ss/8.jpg)
+
+   ![Cek Versi Node](ss/9.jpg)
+
+   ![Cek Versi Node](ss/10.jpg)
+
 
 ## 4. Memahami Struktur Folder
 
@@ -109,14 +136,14 @@ Setelah Cypress terbuka pertama kali, ia akan otomatis membuat beberapa folder p
 *   **`cypress.config.js`**:
     *   File konfigurasi global untuk Cypress. Anda bisa mengatur base URL website yang akan dites di sini. -> ![Config Global](ss/13-config-global.jpg)
 
----
+
 
 ## 5. Perintah Dasar Cypress
 
-Jangan takut dengan koding! Cypress menggunakan bahasa manusiawi yang mudah dimengerti. Berikut "kamus" perintah yang paling sering dipakai:
+Cypress menggunakan bahasa manusiawi yang mudah dimengerti. Berikut "kamus" perintah yang paling sering dipakai:
 
 | Perintah | Fungsi | Contoh Penggunaan |
-| :--- | :--- | :--- |
+| : | : | : |
 | **`cy.visit()`** | Membuka alamat website (URL). | `cy.visit('https://google.com')` |
 | **`cy.get()`** | Mencari elemen di halaman (tombol, kotak teks). | `cy.get('#username')` |
 | **`cy.type()`** | Mengetik teks ke dalam input. | `cy.get('#username').type('budi123')` |
@@ -125,7 +152,7 @@ Jangan takut dengan koding! Cypress menggunakan bahasa manusiawi yang mudah dime
 | **`cy.should()`** | Melakukan validasi/pengecekan (Assertion). | `cy.get('.alert').should('be.visible')` |
 | **`cy.wait()`** | Menunggu sekian detik (gunakan dgn bijak). | `cy.wait(1000)` (tunggu 1 detik) |
 
----
+
 
 ## 6. Membuat Skenario Tes Pertama
 
@@ -157,11 +184,10 @@ describe('Skenario Test Login', () => {
 
 });
 ```
-
-*(Lihat gambar: Contoh kodingan skenario login)*
 ![Skenario Login Code](ss/16-skenario-login.jpg)
 
----
+![Skenario Login Code](ss/14-skenario-login.jpg)
+
 
 ## 7. Menjalankan Test
 
@@ -176,6 +202,13 @@ Cocok untuk debugging dan melihat langkah-langkah robot bekerja.
 4.  Klik file `1-Skenario-Login.cy.js`.
 5.  Tonton robot bekerja!
 
+![Skenario Login Code](ss/15-skenario-login.jpg)
+
+![Skenario Login Code](ss/15-skenario-run-2.jpg)
+
+![Skenario Login Code](ss/16-skenario-login-2.jpg)
+
+
 ### Cara 2: Menggunakan CLI (Mode Cepat/Headless)
 Cocok untuk dijalankan di server atau CI/CD, tanpa membuka jendela browser.
 
@@ -187,12 +220,11 @@ npx cypress run --spec "cypress/e2e/1-Skenario-Login.cy.js"
 
 Jika tes berhasil, Anda akan melihat laporan centang hijau (✅).
 
-*(Lihat gambar: Hasil run di terminal)*
-![Hasil Run Terminal](ss/16-skenario-login-cypress-run.jpg)
+![Skenario Login Code](ss/16-skenario-login-cypress-run.jpg)
 
----
+![Skenario Login Code](ss/16-skenario-login-cypress-run-2.jpg)
+
 
 > **Tips Tambahan**:
-> Anda bisa melihat gambar-gambar screenshot detail langkah per langkah di dalam folder `ss/` untuk visualisasi yang lebih jelas.
+> Anda bisa melihat seubah source code cypress di folder `project/` untuk explorati lebih jelas
 
-Selamat! Anda sudah berhasil membuat automation test pertama Anda. 🎉
