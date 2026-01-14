@@ -116,8 +116,8 @@ Let's make our first test project from zero.
     ![Check Node Version](ss/6.jpg)
     ![Check Node Version](ss/7.jpg)
     ![Check Node Version](ss/8.jpg)
-    ![Check Node Version](ss/9.jpg)
     ![Check Node Version](ss/10.jpg)
+    ![Check Node Version](ss/11.jpg)
 
 
 ## 6. Understanding Folder Structure
