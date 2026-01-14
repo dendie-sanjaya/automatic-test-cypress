@@ -1,31 +1,34 @@
-# Complete Tutorial: Automated Testing with Cypress
-
-## A Short Story
+## A Background Story
 Imagine you are a QA Engineer at an online store company. Every week there is a new feature, and every week you have to check the "Login" and "Checkout" features manually, over and over again.
 
 Monday you check, it's safe. Wednesday there's a code update from the programmer, you check again. Friday there's a hotfix, check again.
 
-Over time your eyes get tired, your fingers get sore, and you start to feel bored. Finally, one check is missed due to _human error_, and a fatal bug escapes to production. Users are angry, the boss is panicked.
+Over time your eyes get tired, your fingers are sore, and you start to feel bored. Finally, one check is missed due to _human error_, and a fatal bug escapes to production. Users are angry, the boss is panicked.
 
 **Is there a better way?**
 
 Of course there is! Say hello to **Cypress**, a loyal robot assistant that never gets tired. You only need to teach it once (write code), and it will do the checking forever—day and night, fast, and accurate. Let's start the journey of building this robot!
 
----
-
 ## 📚 Table of Contents
 
 1. [Software Testing Life Cycle (STLC)](#1-software-testing-life-cycle-stlc)
+    * [1.1. Unit Testing](#11-unit-testing)
+    * [1.2. Functional Testing](#12-functional-testing)
+    * [1.3. Stress Testing](#13-stress-testing)
+    * [1.4. Penetration Testing](#14-penetration-testing)
 2. [What is Cypress & E2E Testing?](#2-what-is-cypress--e2e-testing)
 3. [Best Practice Collaboration Scheme](#3-best-practice-collaboration-scheme)
 4. [Prerequisites](#4-prerequisites)
+    * [4.1. Download Node.js](#41-download-nodejs)
+    * [4.2. Check Installation](#42-check-installation)
 5. [Project Installation](#5-project-installation)
 6. [Understanding Folder Structure](#6-understanding-folder-structure)
 7. [Basic Cypress Commands](#7-basic-cypress-commands)
 8. [Creating First Test Scenario](#8-creating-first-test-scenario)
 9. [Running the Test](#9-running-the-test)
+    * [9.1. Method 1: Using GUI (Visual Mode)](#91-method-1-using-gui-visual-mode)
+    * [9.2. Method 2: Using CLI (Fast/Headless Mode)](#92-method-2-using-cli-fastheadless-mode)
 
----
 
 ## 1. Software Testing Life Cycle (STLC)
 
@@ -52,6 +55,10 @@ This test is a simulated attack to find security loopholes in the application so
 
 Cypress is a tool that allows us to perform that simulation automatically.
 
+URL: https://www.cypress.io/
+
+![ss](./ss/cypress.jpg)
+
 
 ## 3. Best Practice Collaboration Scheme
 
@@ -59,18 +66,17 @@ Cypress is a tool that allows us to perform that simulation automatically.
 
 Cypress allows the QA (Quality Assurance) team to work in parallel. Each QA can work on a different business flow without overlapping each other.
 
-
 ## 4. Prerequisites
 
 Before starting, you must install **Node.js** on your computer.
 
-### 1. Download Node.js
+### 4.1. Download Node.js
 Visit the official Node.js website and download the LTS (Long Term Support) version.
 
 ![Check Node Version](ss/1.jpg)
 ![Check Node Version](ss/2.jpg)
 
-### 2. Check Installation
+### 4.2. Check Installation
 Open Terminal (Command Prompt/PowerShell) and type the following command to ensure the installation was successful:
 
 ```bash
@@ -88,7 +94,7 @@ Let's make our first test project from zero.
 
 **Steps:**
 
-1.  **Create Project Folder**: Make a new folder on your computer, for example `project`.
+5.1.  **Create Project Folder**: Make a new folder on your computer, for example `project`.
 2.  **Initialize Project**: Open the terminal inside that folder and type:
     ```bash
     npm init -y
@@ -97,12 +103,12 @@ Let's make our first test project from zero.
 
     ![Check Node Version](ss/4.jpg)
 
-3.  **Install Cypress**: Type this command to download Cypress:
+5.2.  **Install Cypress**: Type this command to download Cypress:
     ```bash
     npm install cypress --save-dev
     ```
 
-4.  **Open Cypress**: After installation is done, open the Cypress application with the command:
+5.3.  **Open Cypress**: After installation is done, open the Cypress application with the command:
     ```bash
     npx cypress open
     ```
@@ -135,7 +141,7 @@ After Cypress opens for the first time, it will automatically create several imp
 Cypress uses human-friendly language that is easy to understand. Here is a "dictionary" of the most frequently used commands:
 
 | Command | Function | Usage Example |
-| : | : | : |
+| :--- | :--- | :--- |
 | **`cy.visit()`** | Opens a website address (URL). | `cy.visit('https://google.com')` |
 | **`cy.get()`** | Finds an element on the page (button, text box). | `cy.get('#username')` |
 | **`cy.type()`** | Types text into an input. | `cy.get('#username').type('budi123')` |
@@ -176,14 +182,13 @@ describe('Login Test Scenario', () => {
 });
 ```
 ![Login Scenario Code](ss/16-skenario-login.jpg)
-![Login Scenario Code](ss/14-skenario-login.jpg)
 
 
 ## 9. Running the Test
 
 There are two ways to run your test robot:
 
-### Method 1: Using GUI (Visual Mode)
+### 9.1. Method 1: Using GUI (Visual Mode)
 Suitable for debugging and seeing the robot's steps working.
 
 1.  Run `npx cypress open`.
@@ -192,12 +197,14 @@ Suitable for debugging and seeing the robot's steps working.
 4.  Click file `1-Login-Scenario.cy.js`.
 5.  Watch the robot work!
 
-![Login Scenario Code](ss/15-skenario-login.jpg)
+![Login Scenario Code](ss/15-skenario-run.jpg)
+
 ![Login Scenario Code](ss/15-skenario-run-2.jpg)
+
 ![Login Scenario Code](ss/16-skenario-login-2.jpg)
 
 
-### Method 2: Using CLI (Fast/Headless Mode)
+### 9.2. Method 2: Using CLI (Fast/Headless Mode)
 Suitable to be run on a server or CI/CD, without opening the browser window.
 
 Run this command in the terminal:
@@ -209,9 +216,10 @@ npx cypress run --spec "cypress/e2e/1-Skenario-Login.cy.js"
 If the test is successful, you will see a green check report (✅).
 
 ![Login Scenario Code](ss/16-skenario-login-cypress-run.jpg)
+
 ![Login Scenario Code](ss/16-skenario-login-cypress-run-2.jpg)
 
----
+
 > **Extra Tips**:
 > You can see all the cypress source code in the `project/` folder for clearer exploration.
 
